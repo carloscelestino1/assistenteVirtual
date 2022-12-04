@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, date
 from google1 import get_calendar_service
 from assistente import *
 import time
@@ -56,7 +56,6 @@ def take_end_date():
     return date_isoformat
 
 
-
 def create_event():
     event_title = take_event_title()
     time.sleep(0.5)
@@ -76,6 +75,32 @@ def create_event():
     ).execute()
 
     talk("Seu evento foi criado com sucesso!")
+
+
+def create_manual():
+    event_title = textbox1.Text()
+    event_desc = textbox2.Text()
+    start_date =  convertDatetime(textbox3.Text())
+    end_date =  convertDatetime(textbox4.Text())
+
+    event_result = calendar_service.events().insert(calendarId='primary',
+        body={
+            "summary": event_title,
+            "description": event_desc,
+            "start": {"dateTime": start_date, "timeZone": 'America/Sao_Paulo'},
+            "end": {"dateTime": end_date, "timeZone": 'America/Sao_Paulo'},
+        }
+    ).execute()
+
+
+
+def convertDatetime(obj):
+
+    if isinstance(obj, (datetime, date)):
+        return obj.isoformat()
+    raise TypeError ("Type %s not serializable" % type(obj))
+
+
 
 
 """if __name__ == '__main__':
