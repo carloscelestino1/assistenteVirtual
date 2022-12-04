@@ -7,37 +7,52 @@ calendar_service = get_calendar_service()
 
 
 def take_event_title():
-    talk("Qual o titulo do evento?")
-    listened_title = listen()
+    try:
+        talk("Qual o titulo do evento?")
+        listened_title = listen()
+    except:
+        talk('não entendi, tente novamente')
+        listened_title = take_event_title()
     return listened_title
 
 def take_event_desc():
-    talk("Qual a descrição do evento?")
-    listen_desc = listen()
+    try:
+        talk("Qual a descrição do evento?")
+        listen_desc = listen()
+    except:
+        talk('não entendi, tente novamente')
+        listen_desc = take_event_title()
     return listen_desc
 
 def take_start_date():
-    talk("Qual o horário inicial?")
-    listened_date = listen().replace(' as ', ' de ')
-    if '2000' in listened_date:
-        listened_date = listened_date.replace('2000 22', '2022')
-    print(listened_date)
-    listened_date = listened_date.split(' de ')
-    new_date = listened_date[2] + '-' + listened_date[1] + '-' + listened_date[0]\
-        + ' ' + listened_date[3]
-    date_isoformat = datetime.fromisoformat(new_date).isoformat()
+    try:
+        talk("Qual o horário inicial?")
+        listened_date = listen().replace(' as ', ' de ')
+        if '2000' in listened_date:
+            listened_date = listened_date.replace('2000 22', '2022')
+        listened_date = listened_date.split(' de ')
+        new_date = listened_date[2] + '-' + listened_date[1] + '-' + listened_date[0]\
+            + ' ' + listened_date[3]
+        date_isoformat = datetime.fromisoformat(new_date).isoformat()
+    except:
+        talk('não entendi, tente novamente')
+        date_isoformat = take_start_date()
     return date_isoformat
 
 def take_end_date():
-    talk("Qual o horário final?")
-    listened_date = listen().replace(' às ', ' de ')
-    if '2000' in listened_date:
-        listened_date = listened_date.replace('2000 22', '2022')
-    listened_date = listened_date.split(' de ')
-    new_date = listened_date[2] + '-' + listened_date[1] + '-' + listened_date[0]\
-        + ' ' + listened_date[3]
+    try: 
+        talk("Qual o horário final?")
+        listened_date = listen().replace(' às ', ' de ')
+        if '2000' in listened_date:
+            listened_date = listened_date.replace('2000 22', '2022')
+        listened_date = listened_date.split(' de ')
+        new_date = listened_date[2] + '-' + listened_date[1] + '-' + listened_date[0]\
+            + ' ' + listened_date[3]
 
-    date_isoformat = datetime.fromisoformat(new_date).isoformat()
+        date_isoformat = datetime.fromisoformat(new_date).isoformat()
+    except:
+        talk('não entendi, tente novamente')
+        date_isoformat = take_end_date()
     return date_isoformat
 
 
@@ -60,7 +75,7 @@ def create_event():
         }
     ).execute()
 
-    print("Evento criado com sucesso!")
+    talk("Seu evento foi criado com sucesso!")
 
 
 if __name__ == '__main__':
