@@ -26,7 +26,7 @@ def take_event_desc():
 
 def take_start_date():
     try:
-        talk("Qual o horário inicial?")
+        talk("Qual a data e horário inicial?")
         listened_date = listen().replace(' as ', ' de ')
         if '2000' in listened_date:
             listened_date = listened_date.replace('2000 22', '2022')
@@ -41,7 +41,7 @@ def take_start_date():
 
 def take_end_date():
     try: 
-        talk("Qual o horário final?")
+        talk("Qual a data e horário final?")
         listened_date = listen().replace(' às ', ' de ')
         if '2000' in listened_date:
             listened_date = listened_date.replace('2000 22', '2022')
@@ -78,5 +78,5 @@ def create_event():
     talk("Seu evento foi criado com sucesso!")
 
 
-if __name__ == '__main__':
-    create_event()
+"""if __name__ == '__main__':
+    create_event()"""
