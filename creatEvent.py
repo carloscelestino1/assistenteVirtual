@@ -2,12 +2,16 @@ from datetime import datetime, date
 from google1 import get_calendar_service
 from assistente import *
 import time
+from PyQt5 import uic,QtWidgets
 
+application = QtWidgets.QApplication([])
+interface = uic.loadUi("TELA_PRINCIPAL.ui")
 calendar_service = get_calendar_service()
 
 
 def take_event_title():
     try:
+        interface.label_2.setText("Qual o titulo do evento?")
         talk("Qual o titulo do evento?")
         listened_title = listen()
     except:
@@ -17,6 +21,7 @@ def take_event_title():
 
 def take_event_desc():
     try:
+        interface.label_7.setText("Qual a descrição do evento?")
         talk("Qual a descrição do evento?")
         listen_desc = listen()
     except:
@@ -62,6 +67,7 @@ def create_event():
     event_desc = take_event_desc()
     time.sleep(0.5)
     start_date = take_start_date()
+    print(start_date)
     time.sleep(0.5)
     end_date = take_end_date()
     time.sleep(0.5)
@@ -77,31 +83,24 @@ def create_event():
     talk("Seu evento foi criado com sucesso!")
 
 
-def create_manual():
-    event_title = textbox1.Text()
-    event_desc = textbox2.Text()
-    start_date =  convertDatetime(textbox3.Text())
-    end_date =  convertDatetime(textbox4.Text())
+def create_manual(linha1, linha2, linha3, linha4):
 
     event_result = calendar_service.events().insert(calendarId='primary',
         body={
-            "summary": event_title,
-            "description": event_desc,
-            "start": {"dateTime": start_date, "timeZone": 'America/Sao_Paulo'},
-            "end": {"dateTime": end_date, "timeZone": 'America/Sao_Paulo'},
+            "summary": linha1,
+            "description": linha2,
+            "start": {"dateTime": convertDatetime(linha3), "timeZone": 'America/Sao_Paulo'},
+            "end": {"dateTime": convertDatetime(linha4), "timeZone": 'America/Sao_Paulo'},
         }
     ).execute()
 
 
+def convertDatetime(data):
+    
+    data = data.split(' ')
+    data2 = data[0].split('/')
+    new_date = data2[2] + '-' + data2[1] + '-' + data2[0]\
+            + ' ' + data[1]
+    date_isoformat = datetime.fromisoformat(new_date).isoformat()
+    return date_isoformat
 
-def convertDatetime(obj):
-
-    if isinstance(obj, (datetime, date)):
-        return obj.isoformat()
-    raise TypeError ("Type %s not serializable" % type(obj))
-
-
-
-
-"""if __name__ == '__main__':
-    create_event()"""

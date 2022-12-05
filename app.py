@@ -1,18 +1,24 @@
-from PyQt5 import uic,QtWidgets
-from creatEvent import create_event, create_manual
+from creatEvent import create_event, create_manual, interface, application, convertDatetime
 
-def funcao_digitar():
-    line_text = interface.lineEdit.text()
-    print(line_text)
+def frame1():
+    interface.frame_2.close()
+    interface.pushButton_3.clicked.connect(create_event)
 
+def frame2():
+    interface.frame_2.show()
+    linha1 = interface.lineEdit_3.text()
+    linha2 = interface.lineEdit_2.text()
+    linha3 = interface.dateTimeEdit.text()
+    linha4 = interface.dateTimeEdit_2.text()
 
-app = QtWidgets.QApplication([])
+    return linha1, linha2, linha3, linha4
 
-interface = uic.loadUi("TELA_PRINCIPAL.ui")
+def mostrar():
+    create_manual(frame2()[0], frame2()[1], frame2()[2], frame2()[3])
 
-interface.pushButton_2.clicked.connect(create_event) # acionamento através do botão fale
-interface.pushButton.clicked.connect(create_manual)#botão pra acionar por texto
-
+interface.pushButton_2.clicked.connect(frame1) # acionamento através do botão fale
+interface.pushButton.clicked.connect(frame2)#botão pra acionar por texto
+interface.pushButton_4.clicked.connect(mostrar)
 
 interface.show()
-app.exec()
+application.exec()
