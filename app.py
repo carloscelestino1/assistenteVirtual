@@ -1,4 +1,4 @@
-from creatEvent import create_event, create_manual, interface, application, convertDatetime
+from creatEvent import create_event, create_manual, interface, application
 
 def frame1():
     interface.frame_2.close()
