@@ -1,4 +1,3 @@
-from creatEvent import *
 from PyQt5 import uic,QtWidgets
 from creatEvent import *
 from createEventManual import *
@@ -36,7 +35,7 @@ def adm_evento_voz():
     
     time.sleep(0.5)
 
-    interface.label_2.setText("Qual Qual a data e hora final do evento?")
+    interface.label_2.setText("Qual a data e hora final do evento?")
     interface.label_2.adjustSize()
     end_date = take_end_date()
     interface.label_3.setText(end_date)
@@ -48,30 +47,36 @@ def adm_evento_voz():
 
 
 def comando_voz():
-    try:
-        talk('Olá, como posso te ajudar?')
-        voz = listen()
-        print(voz)
-        if voz == 'criar evento':
-            adm_evento_voz()
-            talk('algo mais?')
-        elif voz == 'pesquisar' or 'pequisa':
-            abrir_google()
-            talk('algo mais?')
-        elif voz == 'youtube':
-            abrir_youtube()
-            talk('algo mais?')
-        elif voz == 'wikipedia':
-            wiki()
-            talk('algo mais?')
-        else:
-            voz == 'sair'
-    
-    except:
-        talk('não entendi, tente novamente')
-        comando_voz()
+    while True:
+        talk('Como posso te ajudar?')
+        try:
+            voz = listen()
+            if (voz == 'criar evento'):
+                adm_evento_voz()
+            elif (voz in {'pesquisar', 'pequisa'}):
+                abrir_google()
+            elif (voz == 'youtube'):
+                abrir_youtube()
+            elif (voz in {'wikipedia','wikipédia'}):
+                texto = wiki()
+                interface.label_2.setText(texto)
+                interface.label_2.adjustSize()
+            else:
+                if voz == 'sair':
+                    talk('ok, até mais')
+                    break
+        except:
+            talk('não entendi, tente novamente')
+            comando_voz()
+
+def ler():
+    texto = interface.label_2.text()
+    talk(texto)
 
 
-interface.pushButton_2.clicked.connect(comando_voz)
+
+interface.pushButton_3.clicked.connect(ler)
+
+ifinterface.pushButton_2.clicked.connect(comando_voz)
 interface.show()
 application.exec()
