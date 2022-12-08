@@ -28,12 +28,13 @@ def take_event_desc():
 def take_start_date():
     try:
         talk("Qual a data e horário inicial?")
-        listened_date = listen().replace(' as ', ' de ', ' do ', ' às ')
+        listened_date = listen().replace(' as ', ' de ')
         if '2000' in listened_date:
             listened_date = listened_date.replace('2000 22', '2022')
         listened_date = listened_date.split(' de ')
         new_date = listened_date[2] + '-' + listened_date[1] + '-' + listened_date[0]\
             + ' ' + listened_date[3]
+        print(new_date)
         date_isoformat = datetime.fromisoformat(new_date).isoformat() 
     except:
         talk('não entendi, tente novamente')

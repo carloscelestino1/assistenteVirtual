@@ -1,4 +1,4 @@
-from PyQt5 import uic,QtWidgets
+from PyQt5 import uic, QtWidgets
 from creatEvent import *
 from createEventManual import *
 import time
@@ -7,7 +7,7 @@ from pesquisas import abrir_google, abrir_youtube, wiki
 
 
 application = QtWidgets.QApplication([])
-interface = uic.loadUi("TELA_PRINCIPAL.ui")
+
 
 
 def adm_evento_voz():
@@ -46,14 +46,45 @@ def adm_evento_voz():
     create_event(event_title, event_desc, start_date, end_date)
 
 
-def ler():
+def ler_assistent():
     texto = interface.label_2.text() 
     talk(texto)
 
 
+def falar():
+    try:
+        texto = listen()
+    except:
+        talk('não entendi, poderia repetir?')
+        falar()
+    print(texto)
+    interface.lineEdit.setText(texto)
+
+
+def lera ():
+    texto = interface.lineEdit.setText(texto)
+    return texto
+
+
+def ler_texto():
+    texto = interface.lineEdit.getText()
+    if (texto in {'criar evento', '1'}):
+        adm_evento_voz()
+    elif (texto in {'pesquisar', 'pequisa', '2'}):
+        abrir_google()
+    elif (texto == 'youtube', '3'):
+        abrir_youtube()
+    elif (texto in {'wikipedia','wikipédia', '4'}):
+        texto = wiki()
+        print(texto)
+        interface.label_2.setText(texto)
+        interface.label_2.adjustSize()
+    interface.label_3.setText(texto)
+    interface.label_3.adjustSize()
+    
+    return texto
 
 def menu():
-    talk('Olá, escolha uma opção')
     while True:
         interface.label_2.setText('escolha uma opção: \n1)criar evento \n2)pesquisar \n3)youtube \n4)wikipedia')
         interface.label_2.adjustSize()
@@ -78,8 +109,15 @@ def menu():
             talk('não entendi, tente novamente')
             menu()
 
-interface.pushButton_3.clicked.connect(ler)
-interface.pushButton_2.clicked.connect(menu)
+
+
+interface = uic.loadUi("TELA_PRINCIPAL.ui")
+interface.pushButton_3.clicked.connect(ler_assistent)
+
+
+interface.pushButton_2.clicked.connect(falar)
+
+interface.pushButton.clicked.connect(ler_texto)
 
 interface.show()
 application.exec()

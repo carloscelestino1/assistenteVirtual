@@ -215,6 +215,12 @@
            <iconset resource="sources.qrc">
             <normaloff>:/sources/arrow-34-24.ico</normaloff>:/sources/arrow-34-24.ico</iconset>
           </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
          </widget>
          <widget class="QPushButton" name="pushButton_3">
           <property name="geometry">
