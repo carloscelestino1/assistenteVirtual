@@ -53,14 +53,12 @@ def ler():
 
 
 def menu():
+    talk('Olá, escolha uma opção')
     while True:
-        interface.label_2.setText('Como posso te ajudar?')
-        interface.label_2.adjustSize()
-        talk('Como posso te ajudar?')
-        time.sleep(2)
         interface.label_2.setText('escolha uma opção: \n1)criar evento \n2)pesquisar \n3)youtube \n4)wikipedia')
         interface.label_2.adjustSize()
         try:
+            time.sleep(2)
             voz = listen()
             if (voz == 'criar evento'):
                 adm_evento_voz()
@@ -70,6 +68,7 @@ def menu():
                 abrir_youtube()
             elif (voz in {'wikipedia','wikipédia'}):
                 texto = wiki()
+                print(texto)
                 interface.label_2.setText(texto)
                 interface.label_2.adjustSize()
             else:

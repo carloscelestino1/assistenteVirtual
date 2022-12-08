@@ -22,6 +22,6 @@ def abrir_youtube():
 def wiki():
     talk('Sobre o que você quer pesquisar no wikipedia?')
     voz = listen()
-    wikipedia.summary(voz)
+    result = wikipedia.summary(voz)
     talk("Aqui está o que encontrei sobre" + voz + 'no wikipedia')
-    return
+    return result
