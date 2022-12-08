@@ -46,9 +46,20 @@ def adm_evento_voz():
     create_event(event_title, event_desc, start_date, end_date)
 
 
-def comando_voz():
+def ler():
+    texto = interface.label_2.text() 
+    talk(texto)
+
+
+
+def menu():
     while True:
+        interface.label_2.setText('Como posso te ajudar?')
+        interface.label_2.adjustSize()
         talk('Como posso te ajudar?')
+        time.sleep(2)
+        interface.label_2.setText('escolha uma opção: \n1)criar evento \n2)pesquisar \n3)youtube \n4)wikipedia')
+        interface.label_2.adjustSize()
         try:
             voz = listen()
             if (voz == 'criar evento'):
@@ -67,16 +78,10 @@ def comando_voz():
                     break
         except:
             talk('não entendi, tente novamente')
-            comando_voz()
-
-def ler():
-    texto = interface.label_2.text()
-    talk(texto)
-
-
+            menu()
 
 interface.pushButton_3.clicked.connect(ler)
+interface.pushButton_2.clicked.connect(menu)
 
-ifinterface.pushButton_2.clicked.connect(comando_voz)
 interface.show()
 application.exec()
