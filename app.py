@@ -58,7 +58,6 @@ def menu():
         interface.label_2.setText('escolha uma opção: \n1)criar evento \n2)pesquisar \n3)youtube \n4)wikipedia')
         interface.label_2.adjustSize()
         try:
-            time.sleep(2)
             voz = listen()
             if (voz == 'criar evento'):
                 adm_evento_voz()

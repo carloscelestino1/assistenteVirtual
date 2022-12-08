@@ -3,7 +3,7 @@ from assistente import talk, listen
 import wikipedia
 
 
-def abrir_google():
+def abrir_google(texto):
     talk('Sobre o que você quer pesquisar?')
     voz = listen()
     url =  "http://google.com/search?q=" + voz
@@ -22,6 +22,7 @@ def abrir_youtube():
 def wiki():
     talk('Sobre o que você quer pesquisar no wikipedia?')
     voz = listen()
-    result = wikipedia.summary(voz)
+    wikipedia.set_lang("pt")
+    texto = wikipedia.summary(voz)
     talk("Aqui está o que encontrei sobre" + voz + 'no wikipedia')
-    return result
+    return texto
