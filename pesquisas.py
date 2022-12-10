@@ -4,11 +4,9 @@ import wikipedia
 
 
 def abrir_google(texto):
-    talk('Sobre o que você quer pesquisar?')
-    voz = listen()
-    url =  "http://google.com/search?q=" + voz
+    url =  "http://google.com/search?q=" + texto
     webbrowser.get().open(url)
-    talk("Aqui está o que encontrei sobre" + voz + 'no google')
+    talk("Aqui está o que encontrei sobre" + texto + 'no google')
     return
 
 def abrir_youtube():

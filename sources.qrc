@@ -1,6 +1,8 @@
 <RCC>
   <qresource prefix="sources">
+    <file>chat - assistente virtual.png</file>
     <file>arrow-34-24.ico</file>
+    <file>chat - voce.png</file>
     <file>microphone-5-24.ico</file>
   </qresource>
 </RCC>
